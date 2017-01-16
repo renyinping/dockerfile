@@ -8,7 +8,7 @@ RUN apt-get update \
         build-essential ccache \
         libncurses5-dev libssl-dev \
         git subversion mercurial \
-        unzip gawk screen tmux \
+        unzip gawk wget screen tmux \
  && apt-get autoremove \
  && apt-get clean
  
