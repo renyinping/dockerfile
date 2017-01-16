@@ -25,4 +25,4 @@ RUN apt-get update \
  && echo 'ClientAliveCountMax 6'  >> /etc/ssh/sshd_config \
  && sed -i 's/^Port 22$/Port 2022/g' /etc/ssh/sshd_config
 
-CMD ["/usr/sbin/sshd -D"]
+CMD ["/usr/sbin/sshd","-D"]
