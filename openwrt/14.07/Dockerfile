@@ -4,7 +4,8 @@ FROM yinping/img:ubuntu-14.04
 
 USER ubuntu
  
-RUN git clone https://git.openwrt.org/14.07/openwrt.git \
+RUN cd ${HOME} \
+ && git clone https://git.openwrt.org/14.07/openwrt.git \
  && cd openwrt \
  && ./scripts/feeds update -a \
  && ./scripts/feeds install -a
