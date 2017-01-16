@@ -1,6 +1,9 @@
 # Ubuntu 14.04 
-
 FROM ubuntu:14.04
+
+MAINTAINER yp_ren@hotmail.com
+
+USER root
 
 RUN apt-get update \
  && apt-get install -y \
@@ -10,17 +13,22 @@ RUN apt-get update \
         git subversion mercurial \
         gawk vim unzip bash bash-completion \
         screen tmux wget sudo openssh-server \
-    \
- && locale-gen zh_CN.UTF-8 en_US.UTF-8 \
+ && apt-get autoremove \
+ && apt-get clean
+
+# 配置中文编码
+RUN locale-gen zh_CN.UTF-8 en_US.UTF-8 \
  && echo 'LANG="zh_CN.UTF-8"'     >> /etc/environment \
- && echo 'LANGUAGE="en_US.UTF-8"' >> /etc/environment \
-    \
- && useradd -m -s /bin/bash ubuntu \
+ && echo 'LANGUAGE="en_US.UTF-8"' >> /etc/environment
+
+# 添加用户ubuntu
+RUN useradd -m -s /bin/bash ubuntu \
  && echo 'ubuntu:ubuntu' | chpasswd \
  && echo 'ubuntu ALL=NOPASSWD: ALL' > /etc/sudoers.d/ubuntu \
- && chmod 440 /etc/sudoers.d/ubuntu \
-    \
- && mkdir /var/run/sshd \
+ && chmod 440 /etc/sudoers.d/ubuntu
+
+# 配置ssh-server
+RUN mkdir /var/run/sshd \
  && echo 'ClientAliveInterval 30' >> /etc/ssh/sshd_config \
  && echo 'ClientAliveCountMax 6'  >> /etc/ssh/sshd_config \
  && sed -i 's/^Port 22$/Port 2022/g' /etc/ssh/sshd_config
