@@ -12,7 +12,7 @@ RUN apt-get update \
  && apt-get autoremove \
  && apt-get clean
  
-RUN git clone https://git.openwrt.org/14.07/openwrt.org \
+RUN git clone https://git.openwrt.org/14.07/openwrt.git \
  && cd openwrt \
  && ./scripts/feeds update -a \
  && ./scripts/feeds install -a
