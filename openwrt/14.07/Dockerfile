@@ -52,4 +52,6 @@ RUN wget https://github.com/renyinping/wndr3700v4/raw/openwrt/nand128m.sh \
  
 RUN make download
 
+RUN make V=s
+
 CMD ["sudo","/usr/sbin/sshd","-D"]
