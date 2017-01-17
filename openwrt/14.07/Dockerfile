@@ -43,4 +43,13 @@ WORKDIR /home/ubuntu/openwrt
 RUN ./scripts/feeds update -a \
  && ./scripts/feeds install -a
 
-CMD ["/usr/sbin/sshd","-D"]
+RUN wget https://github.com/renyinping/wndr3700v4/blob/openwrt/nand128m.sh \
+ && ./nand128m.sh \
+ && wget https://github.com/renyinping/wndr3700v4/blob/openwrt/nfs-kernel-server.not-kmod \
+ && ./nfs-kernel-server.not-kmod \
+ && wget https://github.com/renyinping/wndr3700v4/blob/openwrt/config.tar.gz \
+ && tar -zxvf config.tar.gz
+ 
+RUN make download
+
+CMD ["sudo","/usr/sbin/sshd","-D"]
