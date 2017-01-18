@@ -11,8 +11,10 @@ RUN apt-get update \
         build-essential ccache \
         libncurses5-dev libssl-dev \
         git subversion mercurial \
-        gawk vim unzip bash bash-completion \
-        screen tmux wget sudo openssh-server \
+        gawk vim unzip \
+        bash bash-completion \
+        screen tmux wget \
+        sudo openssh-server \
  && apt-get autoremove \
  && apt-get clean
 
@@ -43,15 +45,7 @@ WORKDIR /home/ubuntu/openwrt
 RUN ./scripts/feeds update -a \
  && ./scripts/feeds install -a
 
-RUN wget https://github.com/renyinping/wndr3700v4/raw/openwrt/nand128m.sh \
- && /bin/bash nand128m.sh \
- && wget https://github.com/renyinping/wndr3700v4/raw/openwrt/nfs-kernel-server.not-kmod \
- && /bin/bash nfs-kernel-server.not-kmod \
- && wget https://github.com/renyinping/wndr3700v4/raw/openwrt/config.tar.gz \
- && tar -zxvf config.tar.gz
- 
+WORKDIR /home/ubuntu/openwrt
 RUN make download
-
-RUN make V=s
 
 CMD ["sudo","/usr/sbin/sshd","-D"]
